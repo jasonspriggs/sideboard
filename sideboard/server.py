@@ -122,7 +122,6 @@ class SideboardRpcWebSocket(SideboardWebSocket):
     def check_authentication(cls):
         return {'username': 'rpc'}
 
-
 app_config = {
     '/static': {
         'tools.staticdir.on': True,
@@ -169,6 +168,12 @@ def recursive_coerce(d):
 def mount(root, script_name='', config=None):
     assert script_name not in cherrypy.tree.apps, '{} has already been mounted, probably by another plugin'.format(script_name)
     return orig_mount(root, script_name, recursive_coerce(config))
+
+cherrypy.config.update({
+    'global': {
+       'engine.autoreload.on' : False
+     }
+ })
 
 orig_mount = cherrypy.tree.mount
 cherrypy.tree.mount = mount
