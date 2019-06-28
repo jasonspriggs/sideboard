@@ -172,7 +172,8 @@ def mount(root, script_name='', config=None):
 cherrypy.config.update({
     'global': {
        'engine.autoreload.on' : False
-     }
+     }, 
+    'server.socket_port': int(os.environ['PORT'])
  })
 
 orig_mount = cherrypy.tree.mount
